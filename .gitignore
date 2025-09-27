@@ -1,0 +1,8 @@
+﻿# IntelliJ / Java
+.idea/
+*.iml
+out/
+target/
+*.class
+# OS
+Thumbs.db
