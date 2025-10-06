@@ -15,7 +15,7 @@ public class TicketMaster{
     /**
      * Buy a Single Ticket.  Not thread-safe.
      */
-    public void buyTicket() {
+    public synchronized void buyTicket() {
         int updatedNumTickets = numTicketsToSell - 1;
 
         // Introduce a tiny delay to magnify the problem.

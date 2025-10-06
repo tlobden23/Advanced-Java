@@ -10,8 +10,8 @@ public class Main {
         TicketMaster totalTickets = new TicketMaster(100);
 
         for (int i = 0; i < 100; i++) {
-            BuyATicket buyTicker = new BuyATicket(totalTickets);
-            executor.execute(buyTicker);
+            BuyATicket buyTicket = new BuyATicket(totalTickets);
+            executor.execute(buyTicket);
         }
 
         executor.shutdown();
