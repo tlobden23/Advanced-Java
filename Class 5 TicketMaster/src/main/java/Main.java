@@ -5,12 +5,20 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
+
+        // thread pool of 100 threads
         ExecutorService executor = Executors.newFixedThreadPool(100);
 
+        // ticket object with 100 tickets avaiable
         TicketMaster totalTickets = new TicketMaster(100);
 
+        // simulate 100 people trying to buying a ticket
         for (int i = 0; i < 100; i++) {
+            // make BuyATicket object and pass in totalTickets (tickets)
+            // in totalTickets try to purchase a ticket
             BuyATicket buyTicket = new BuyATicket(totalTickets);
+
+            // send the task to the thread pool to try and purchase
             executor.execute(buyTicket);
         }
 
