@@ -7,12 +7,12 @@ public class Main {
     public static void main(String[] args) {
 
         // thread pool of 100 threads
-        ExecutorService executor = Executors.newFixedThreadPool(100);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
 
-        // ticket object with 100 tickets avaiable
+        // ticket object with 100 tickets available
         TicketMaster totalTickets = new TicketMaster(100);
 
-        // simulate 100 people trying to buying a ticket
+        // simulate 100 people trying to buy a ticket
         for (int i = 0; i < 100; i++) {
             // make BuyATicket object and pass in totalTickets (tickets)
             // in totalTickets try to purchase a ticket
@@ -22,6 +22,7 @@ public class Main {
             executor.execute(buyTicket);
         }
 
+        // shutdown the thread pool
         executor.shutdown();
 
         //  Wait for all tasks to complete;  here we wait a max of 1 minute.
@@ -31,8 +32,8 @@ public class Main {
             e.printStackTrace();
         }
 
-        //  We tried to add 100 pennies.
-        //  Does this match the account balance?
+        //  we tried purchasing 100 tickets
+        //  Does this match the total tickets amount
         System.out.println("Tickets left:  " + totalTickets.getNumTicketsToSell());
     }
 }
