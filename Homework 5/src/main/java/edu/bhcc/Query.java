@@ -84,9 +84,13 @@ public class Query {
      * @throws SQLException
      */
     public static void countData(Connection connection) throws SQLException {
+        // create prepared statement for SQL statement
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS total FROM MUSIC");
+
+        // execute the SQL statement and return back the data
         ResultSet resultSet = preparedStatement.executeQuery();
 
+        // retrieve the int (count of data row)
         if (resultSet.next()) {
                 int total = resultSet.getInt("total");
                 System.out.printf("Total records in MUSIC table: %d\n", total);
