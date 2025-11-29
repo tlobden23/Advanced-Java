@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Logger Application</title>
+    <link rel = "stylesheet" href = "/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="container text-left">
+        <div class="row">
+            <div class="col-7">
+                <h2 class = "display-3 text-primary border-bottom border-2 border-black py-2">Logger Application</h2>
+            </div>
+        </div>
+
+        <form action="log_message" method="GET">
+            <div class="row mt-2">
+                <div class="col-6">
+                    <input type="text"
+                           class="form-control me-2"
+                           placeholder="New Log Message"
+                           aria-label="New Log Message"
+                           name="message">
+                </div>
+
+                <div class="col-6">
+                    <button class="btn btn-outline-secondary float-start text-light bg-primary"
+                            type="submit"
+                            id="button-addon2">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="row mt-3">
+            <div class="col-4 pe-0">
+                <p class = "bold_text text-black border-bottom pb-2" >Timestamp</p>
+            </div>
+            <div class="col-3 ps-0">
+                <p class = "bold_text text-black border-bottom pb-2" >Message</p>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>
