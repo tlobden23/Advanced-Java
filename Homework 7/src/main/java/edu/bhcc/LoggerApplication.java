@@ -3,6 +3,7 @@ package edu.bhcc;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import freemarker.template.Configuration;
@@ -12,34 +13,73 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * Hello, World Servlet.
- */
+
 public class LoggerApplication extends HttpServlet {
 
-    /**
-     * Process an HTTP Request.
-     */
+    private LogDatabase db;
+
+    @Override
+    public void init() {
+        db = new LogDatabase();
+        db.init();   // create table if needed
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
 
-        // Create the Model
-        Map<String, Object> root = new HashMap<String, Object>();
-        root.put("user", "Ethan");
+        String path = request.getPathInfo();
 
-        // Get the FreeMarker Template Engine
-        FreeMarkerUtil setup = FreeMarkerUtil.getInstance();
-        Configuration cfg = setup.getFreeMarkerConfiguration();
-        Template template = cfg.getTemplate("logger.html");
+        // Example: /logger/log_message
+        if ("/log_message".equals(path)) {
+            handleInsert(request, response);
+            return;
+        }
 
-        //  Merge the Model with the Template
-        PrintWriter writer = response.getWriter();
+        // Otherwise show the main page
+        showPage(response);
+    }
+
+    private void handleInsert(HttpServletRequest request,
+                              HttpServletResponse response) throws IOException {
+
+        String message = request.getParameter("message");
+
+        if (message != null && !message.trim().isEmpty()) {
+            db.insert(message.trim());
+        }
+
+        response.sendRedirect(request.getContextPath() + "/logger");
+    }
+
+    private void showPage(HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        List<Log> logs = db.findAll();
+
+        StringBuilder sb = new StringBuilder();
+        for (Log log : logs) {
+            sb.append("<div class=\"row\">")
+                    .append("<div class=\"col-4 pe-0 border-bottom py-2\">")
+                    .append(log.getTimeStamp())
+                    .append("</div>")
+                    .append("<div class=\"col-3 ps-0 border-bottom py-2\">")
+                    .append(log.getMessage())
+                    .append("</div>")
+                    .append("</div>");
+        }
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("rows", sb.toString());
+
+        Configuration cfg = FreeMarkerUtil.getInstance().getFreeMarkerConfiguration();
+        Template tpl = cfg.getTemplate("logger.html");
+
+        PrintWriter out = response.getWriter();
         try {
-            template.process(root, writer);
+            tpl.process(model, out);
         } catch (TemplateException e) {
-            writer.println("Could not process template:  " + e.getMessage());
+            out.println("Template error: " + e.getMessage());
         }
     }
 }

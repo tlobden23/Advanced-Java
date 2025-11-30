@@ -10,10 +10,6 @@
     <servlet-name>Logger</servlet-name>
     <servlet-class>edu.bhcc.LoggerApplication</servlet-class>
   </servlet>
-  <servlet>
-      <servlet-name>SaveMessage</servlet-name>
-      <servlet-class>edu.bhcc.SaveMessage</servlet-class>
-  </servlet>
 
   <servlet-mapping>
     <servlet-name>Logger</servlet-name>
