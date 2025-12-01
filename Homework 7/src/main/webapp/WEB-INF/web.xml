@@ -8,7 +8,7 @@
 
   <servlet>
     <servlet-name>Logger</servlet-name>
-    <servlet-class>edu.bhcc.LoggerApplication</servlet-class>
+    <servlet-class>edu.bhcc.LoggerServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
