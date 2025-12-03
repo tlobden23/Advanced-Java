@@ -3,7 +3,6 @@ package edu.bhcc;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import freemarker.template.Configuration;
@@ -13,11 +12,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
+/**
+ * Servlet responsible for handling request.
+ *
+ */
 public class LoggerServlet extends HttpServlet {
 
     private LogDatabase logDatabase = new LogDatabase();
 
+    /**
+     * This method retrieves message and then inserts into database and then puts in HashMap to be displayed.
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         response.setContentType("text/html");

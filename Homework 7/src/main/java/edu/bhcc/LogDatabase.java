@@ -4,10 +4,17 @@ import java.sql.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * This class deals with the database,
+ * create table, insert data, and retrieve data from the database.
+ *
+ */
 public class LogDatabase {
     private Connection connection;
 
+    /**
+     * Constructor to create the JDBC connection and also create Table if not exists.
+     */
     public LogDatabase() {
         // try to run the sql statement and also connect to SQLite via JDBC
         try {
@@ -26,6 +33,11 @@ public class LogDatabase {
         }
     }
 
+    /**
+     * Retrieve message from LoggerServlet and insert data into database.
+     *
+     * @param message
+     */
     public void insert(String message) {
         // retrieve current time
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
@@ -46,7 +58,12 @@ public class LogDatabase {
         }
     }
 
-    // This builds ALL the HTML rows that FreeMarker will display as ${row}
+    /**
+     * This builds all the HTML rows that FreeMarker will display as ${row}.
+     * Also, retrieves all timestamp and message from database.
+     *
+     * @return
+     */
     public String retrieve() {
         // create StringBuilder to hold all HTML code
         StringBuilder builder = new StringBuilder();
